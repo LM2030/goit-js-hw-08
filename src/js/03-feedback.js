@@ -9,18 +9,9 @@ const refs = {
 refs.form.addEventListener('input', throttle(onInput, 500));
 refs.form.addEventListener('submit', onFormSumbit);
 
-const formData = {};
+let formData = {};
 
 takeLocalStorageItems();
-
-function onFormSumbit(event) {
-  event.preventDefault();
-
-  consoleData(event.currentTarget);
-
-  event.currentTarget.reset();
-  localStorage.removeItem('feedback-form-state');
-}
 
 function consoleData(event) {
   const text = {};
@@ -41,4 +32,14 @@ function takeLocalStorageItems() {
     const element = refs.form.querySelector(`[name="${key}"]`);
     element.value = storageItem[key];
   });
+}
+
+function onFormSumbit(event) {
+  event.preventDefault();
+
+  consoleData(event.currentTarget);
+
+  event.currentTarget.reset();
+  localStorage.removeItem('feedback-form-state');
+  formData = {};
 }
